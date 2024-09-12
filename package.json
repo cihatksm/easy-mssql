@@ -1,6 +1,6 @@
 {
   "name": "easy-mssql",
-  "version": "0.2.7",
+  "version": "0.0.1",
   "description": "This is a simple and easy to use mssql library for node.js",
   "main": "database.js",
   "scripts": {
