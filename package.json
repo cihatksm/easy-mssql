@@ -1,0 +1,35 @@
+{
+  "name": "easy-mssql",
+  "version": "0.2.7",
+  "description": "This is a simple and easy to use mssql library for node.js",
+  "main": "database.js",
+  "scripts": {
+    "start": "node simple/server.js",
+    "dev": "nodemon simple/server.js",
+    "update": "npm run uninstall && update-modules && npm i && npm audit fix",
+    "uninstall": "rmdir node_modules /s /q && npm install update-modules@latest"
+  },
+  "author": "CihatKsm <me@cihatksm.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CihatKsm/easy-mssql.git"
+  },
+  "keywords": [
+    "cihatksm",
+    "sql",
+    "easymssql",
+    "easy-mssql",
+    "mssql",
+    "node-mssql",
+    "database"
+  ],
+  "dependencies": {
+    "colors": "^1.4.0",
+    "mssql": "^11.0.1",
+    "update-modules": "^0.1.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
