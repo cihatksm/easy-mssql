@@ -14,10 +14,7 @@ module.exports = async (procedureName, referance = {}) => {
         try {
             for (const key of Object.keys(referance)) {
                 var value = referance[key];
-                const valueType = typeof value;
-                const sqlType = valueType === 'number' ? sql.Int : valueType === 'boolean' ? sql.Bit : sql.NVarChar;
-                value = valueType === 'boolean' ? value === true ? 1 : 0 : valueType === 'object' ? JSON.stringify(value) : value;
-                request.input(key, sqlType, value);
+                request.input(key, value);
             }
 
             request.execute(procedureName)
