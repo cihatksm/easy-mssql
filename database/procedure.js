@@ -20,7 +20,7 @@ function Procedure(name = '') {
         const queryString = `SELECT * FROM sysobjects WHERE type = 'P' AND name = '${name}'`;
         const queryOutput = await Query(queryString);
         if (queryOutput?.status !== 200) {
-            if (config.get.logingMode()) console.log('▲ easy-mssql: '.cyan + queryOutput?.message);
+            if (config.get.logingMode()) console.log(`▲ easy-mssql / Procedure / Info / The ${name} procedure does not exist in the database.`.yellow);
             return null;
         }
 
@@ -32,13 +32,13 @@ function Procedure(name = '') {
             type: { 'U ': 'Table', 'V ': 'View', 'P ': 'Procedure', 'FN ': 'Function' }[data?.xtype] || data?.xtype,
             date: data?.crdate
         }
-    }
+    };
 
     async function AllInfo() {
         const queryString = `SELECT * FROM sysobjects WHERE type = 'P'`;
         const queryOutput = await Query(queryString);
         if (queryOutput?.status !== 200) {
-            if (config.get.logingMode()) console.log('▲ easy-mssql: '.cyan + queryOutput?.message);
+            if (config.get.logingMode()) console.log(`▲ easy-mssql / Procedure / AllInfo / The procedure does not exist in the database.`.yellow);
             return null;
         }
 
@@ -52,7 +52,7 @@ function Procedure(name = '') {
                 date: m?.crdate
             }
         });
-    }
+    };
 
     /**
      * 
@@ -65,7 +65,7 @@ function Procedure(name = '') {
         const queryOutput = await Query(queryString);
 
         if (queryOutput?.status !== 200) {
-            if (config.get.logingMode()) console.log('▲ easy-mssql: '.cyan + queryOutput?.message);
+            if (config.get.logingMode()) console.log(`▲ easy-mssql / Procedure / SimpleOutput / The ${name} procedure does not exist in the database.`.yellow);
             return {};
         }
 
@@ -73,7 +73,7 @@ function Procedure(name = '') {
         const outputArray = data?.filter(f => !f.is_hidden).map(m => ({ name: m?.name, type: m?.system_type_name?.split('(')[0] }));
         const output = outputArray.reduce((acc, cur) => { return { ...acc, [cur?.name]: cur?.type } }, {});
         return output;
-    }
+    };
 
     /**
      * This function is used to execute the procedure in the database
@@ -84,7 +84,7 @@ function Procedure(name = '') {
     async function Execute(referance = {}) {
         let procedureOutput = await procedure_execute(name, referance);
         if (procedureOutput?.status !== 200) {
-            if (config.get.logingMode()) console.log('▲ easy-mssql: '.cyan + procedureOutput?.message);
+            if (config.get.logingMode()) console.log(`▲ easy-mssql / Procedure / Execute / The ${name} procedure could not be executed.`.yellow);
             return { status: 501, message: 'The procedure could not be executed.', data: [] };
         }
 
@@ -93,7 +93,7 @@ function Procedure(name = '') {
         if (data && data?.length > 0) {
             const schema = await SimpleOutput();
             if (!schema || Object.keys(schema).length === 0) {
-                if (config.get.logingMode()) console.log('▲ easy-mssql: '.cyan + 'The schema could not be found.');
+                if (config.get.logingMode()) console.log(`▲ easy-mssql / Procedure / Execute / The ${name} procedure schema could not be found.`.yellow);
                 return { status: 502, message: 'The schema could not be found.', data: [] };
             }
 
@@ -108,11 +108,11 @@ function Procedure(name = '') {
 
         procedureOutput.data = data;
         return procedureOutput;
-    }
+    };
 
     return {
         Execute, Info, AllInfo, SimpleOutput
-    }
+    };
 }
 
 module.exports = Procedure;

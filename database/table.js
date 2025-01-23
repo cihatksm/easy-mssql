@@ -45,7 +45,7 @@ function Table(name) {
     async function find(referance, options = { limit: null, selected_keys: [], likes: {} }) {
         let table = await TableFunctions(name).info();
         if (!table) {
-            if (config.get.logingMode()) console.log('▲ easy-mssql: '.cyan + "Table information not found.");
+            if (config.get.logingMode()) console.log(`▲ easy-mssql / Table / Find / Table ${name} not found.`.yellow);
             return false;
         }
 
@@ -123,17 +123,17 @@ function Table(name) {
         const { keys: dataKeys, values: dataValues } = get_pieces(data);
 
         if (refKeys.length === 0) {
-            if (config.get.logingMode()) console.log('▲ easy-mssql: '.cyan + "No conditions provided for update");
+            if (config.get.logingMode()) console.log(`▲ easy-mssql / Table / Update / No referance provided for update`);
             return false;
         }
         if (dataKeys.length === 0) {
-            if (config.get.logingMode()) console.log('▲ easy-mssql: '.cyan + "No data provided for update");
+            if (config.get.logingMode()) console.log(`▲ easy-mssql / Table / Update / No data provided for update`);
             return false;
         }
 
         const isData = await findOne(referance);
         if (!isData) {
-            if (config.get.logingMode()) console.log('▲ easy-mssql: '.cyan + "No data found for update");
+            if (config.get.logingMode()) console.log(`▲ easy-mssql / Table / Update / No data found for update`);
             return false;
         }
 
@@ -163,7 +163,7 @@ function Table(name) {
     async function _deleteOne(referance) {
         const { keys, values } = get_pieces(referance);
         if (keys.length === 0) {
-            if (config.get.logingMode()) console.log('▲ easy-mssql: '.cyan + "No conditions provided for delete");
+            if (config.get.logingMode()) console.log(`▲ easy-mssql / Table / Delete / No referance provided for delete`);
             return false;
         }
 
@@ -180,7 +180,7 @@ function Table(name) {
     async function deleteAll(referance) {
         const datas = await find(referance);
         if (datas.length === 0) {
-            if (config.get.logingMode()) console.log('▲ easy-mssql: '.cyan + "No data found for delete");
+            if (config.get.logingMode()) console.log(`▲ easy-mssql / Table / Delete / No data found for delete`);
             return false;
         }
 

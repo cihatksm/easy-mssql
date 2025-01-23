@@ -19,7 +19,7 @@ module.exports = (data = {}) => {
     datas.values = datas.values.map(value => value == 'NULL' ? value : `'${value.slice(1, -1).replaceAll(`\'`, `\'\'`)}'`);
 
     return datas;
-}
+};
 
 /**
  * This function is used to prepare the value to be added to the database.
@@ -37,4 +37,4 @@ function prepare_value(value) {
     ];
 
     return values.reduce((acc, cur) => acc.replace(cur.x, cur.y), value);
-}
+};

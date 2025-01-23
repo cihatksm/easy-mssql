@@ -11,23 +11,31 @@ const config = require('./config');
 module.exports = async (procedureName, referance = {}) => {
     return await new Promise(async (resolve) => {
         const request = new sql.Request();
+
         try {
             for (const key of Object.keys(referance)) {
                 var value = referance[key];
                 request.input(key, value);
-            }
+            };
 
             request.execute(procedureName)
                 .then(result => {
                     resolve({ status: 200, message: 'Success', data: result?.recordset });
                 })
                 .catch(err => {
-                    if (config.get.logingMode()) console.log('▲ easy-mssql: '.cyan + err);
-                    resolve({ status: 500, message: 'Error', data: null })
-                })
+                    if (config.get.logingMode()) {
+                        console.log(`▲ easy-mssql / Procedure / ${procedureName} : ${err.message}`.yellow);
+                        console.error(err);
+                    };
+                    resolve({ status: 500, message: 'Error', data: null });
+                });
         } catch (err) {
-            if (config.get.logingMode()) console.log('▲ easy-mssql: '.cyan + err);
-            resolve({ status: 501, message: 'Error', data: null })
-        }
+            if (config.get.logingMode()) {
+                console.log(`▲ easy-mssql / Procedure / ${procedureName} : ${err.message}`.yellow);
+                console.error(err);
+            };
+
+            resolve({ status: 501, message: 'Error', data: null });
+        };
     });
-}
+};

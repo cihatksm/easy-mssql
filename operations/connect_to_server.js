@@ -10,17 +10,17 @@ const config = require('./config');
  */
 module.exports = async (sqlConfig, run) => {
     if (!sqlConfig || typeof sqlConfig !== 'object') {
-        if (config.get.logingMode()) console.log('▲ easy-mssql: '.cyan + 'The sqlConfig parameter is not an object.');
+        if (config.get.logingMode()) console.log(`▲ easy-mssql / Connection / The sqlConfig parameter is not an object.`.yellow);
         return false;
-    }
+    };
 
     const required = { user: "string", password: "string", server: "string", database: "string" };
     for (const key in required) {
         if (!sqlConfig[key] || typeof sqlConfig[key] !== required[key]) {
-            if (config.get.logingMode()) console.log('▲ easy-mssql: '.cyan + `The ${key} parameter is not a ${required[key]}.`);
+            if (config.get.logingMode()) console.log(`▲ easy-mssql / Connection / The ${key} parameter is not a ${required[key]}.`.yellow);
             return false;
-        }
-    }
+        };
+    };
 
     if (!sqlConfig.options || !sqlConfig.options?.encrypt || typeof sqlConfig.options == 'object' || typeof sqlConfig.options?.encrypt !== 'boolean')
         sqlConfig.options.encrypt = false;
@@ -30,17 +30,17 @@ module.exports = async (sqlConfig, run) => {
             sql.connect(sqlConfig, (err) => {
                 if (run && typeof run === 'function') return run(sqlConfig, err);
                 if (err) {
-                    if (config.get.logingMode()) console.log('▲ easy-mssql: '.cyan + err);
+                    if (config.get.logingMode()) console.log(`▲ easy-mssql / Connection / ${err.message}`.yellow);
                     resolve(false);
                 } else {
-                    if (config.get.logingMode()) console.log('▲ easy-mssql: '.cyan + 'Connected to the database.');
+                    if (config.get.logingMode()) console.log(`▲ easy-mssql / Connection / Success`.yellow);
                     resolve(true);
                 }
             });
         } catch (err) {
-            if (config.get.logingMode()) console.log('▲ easy-mssql: '.cyan + err);
+            if (config.get.logingMode()) console.log(`▲ easy-mssql / Connection / ${err.message}`.yellow);
             if (run && typeof run === 'function') return run(sqlConfig, err);
             resolve(false);
-        }
+        };
     });
 }

@@ -18,7 +18,7 @@ var logingMode = false;
 function setLogingMode(mode = false) {
     if (typeof mode !== 'boolean') throw new Error('Invalid parameter type. Expected boolean.');
     logingMode = mode;
-}
+};
 
 /**
  * This function is used to get the current output format of the query result.
@@ -38,4 +38,4 @@ module.exports = {
         //detailsMode: setDetailsMode,
         logingMode: setLogingMode
     }
-}
+};

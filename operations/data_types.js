@@ -4,8 +4,8 @@
 class Any {
     AnyConstructor(value) {
         this.value = value;
-    }
-}
+    };
+};
 
 /**
  * This function is used to check if the value is null.
