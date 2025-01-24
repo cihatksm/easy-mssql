@@ -12,4 +12,4 @@ If the vulnerability is accepted, appropriate actions will be taken to address i
 If it is declined, we will provide an explanation. Thank you for your cooperation.
 
 All rights reserved.
-cihatksm.com, 2024 © CihatKsm
+cihatksm.com, 2025 © cihatksm
