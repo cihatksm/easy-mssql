@@ -1,11 +1,19 @@
 {
   "name": "easy-mssql",
-  "version": "0.0.3",
+  "version": "0.0.4-beta.1",
   "description": "This is a simple and easy to use mssql library for node.js",
-  "main": "database.js",
+  "main": "dist/database.js",
+  "types": "dist/database.d.ts",
   "scripts": {
-    "start": "node simple/server.js",
-    "dev": "nodemon simple/server.js",
+    "start": "node dist/simple/server.js",
+    "dev": "nodemon dist/simple/server.js",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "ts-node simple/test.ts",
+    "test:docker": "docker-compose up -d && timeout /t 15 && npm run test && docker-compose down",
+    "test:setup": "echo 'Docker setup skipped. Please ensure SQL Server is running locally.'",
+    "test:teardown": "echo 'Docker teardown skipped.'",
+    "test:full": "npm run test",
     "update-in-windows": "npm run uninstall-in-windows && update-modules && npm i && npm audit fix",
     "update-in-linux": "npm run uninstall-in-linux && update-modules && npm i && npm audit fix",
     "uninstall-in-windows": "rmdir node_modules /s /q && del package-lock.json && npm i update-modules@latest",
@@ -32,6 +40,10 @@
     "update-modules": "^0.1.8"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "@types/mssql": "^9.1.7",
+    "@types/node": "^20.17.30",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }

@@ -1,9 +1,0 @@
-module.exports = {   
-    sql: {
-        user: 'ig',
-        password: 'my-password-090604',
-        server: '20.10.20.20',
-        database: 'cihatksm.com',
-        options: { encrypt: false }
-    }
-}

@@ -1,10 +1,13 @@
+"use strict";
 /**
  * This object contains the SQL data types.
- * @file sql_types.js
+ * @file sql_types.ts
  * @description This file contains the SQL data types.
  * @module
  */
-module.exports = {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.sqlTypes = void 0;
+exports.sqlTypes = {
     varchar: (length = 255) => typeof length === 'number' ? `VARCHAR(${length})` : 'VARCHAR(255)',
     int: () => 'INT',
     bigint: () => 'BIGINT',
@@ -33,27 +36,14 @@ module.exports = {
     uniqueidentifier: () => 'UNIQUEIDENTIFIER',
     sql_variant: () => 'SQL_VARIANT',
     xml: () => 'XML',
-    /**
-     * This object contains the SQL data type options.
-     * @file sql_types.js
-     * @description This file contains the SQL data type options.
-     * @module
-     * @property {function} notNull This function is used to create a NOT NULL constraint.
-     * @property {function} primaryKey This function is used to create a PRIMARY KEY constraint.
-     * @property {function} unique This function is used to create a UNIQUE constraint.
-     * @property {function} autoIncrement This function is used to create an AUTO_INCREMENT constraint.
-     * @property {function} default This function is used to create a DEFAULT constraint.
-     * @property {function} check This function is used to create a CHECK constraint.
-     * @property {function} foreignKey This function is used to create a FOREIGN KEY constraint.
-     * @returns
-     */
     options: {
         notNull: () => ' ' + 'NOT NULL',
         primaryKey: () => ' ' + 'PRIMARY KEY',
         unique: () => ' ' + 'UNIQUE',
         autoIncrement: () => ' ' + 'IDENTITY(1,1)',
-        default: (value = null) => value !== null ? (' ' + `DEFAULT ${value}`) : '',
-        check: (value = null) => value !== null ? (' ' + `CHECK(${value})`) : '',
-        foreignKey: (table = null, column = null) => table !== null && column !== null ? (' ' + `FOREIGN KEY (${column}) REFERENCES ${table}(${column})`) : ''
+        default: (value) => value !== undefined ? (' ' + `DEFAULT ${value}`) : '',
+        check: (value) => value !== undefined ? (' ' + `CHECK(${value})`) : '',
+        foreignKey: (table, column) => table !== undefined && column !== undefined ? (' ' + `FOREIGN KEY (${column}) REFERENCES ${table}(${column})`) : ''
     }
 };
+//# sourceMappingURL=sql_types.js.map

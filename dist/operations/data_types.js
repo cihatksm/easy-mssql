@@ -1,79 +1,86 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.sqlTypes = void 0;
 /**
  * This class is used to create an object of any data type.
  */
 class Any {
-    AnyConstructor(value) {
+    constructor(value) {
         this.value = value;
-    };
-};
-
+    }
+}
 /**
  * This function is used to check if the value is null.
- * 
- * @param {*} value This value is the data to be checked.
- * @returns 
+ *
+ * @param value - The data to be checked
+ * @returns boolean - Returns true if the value is null, false otherwise
  */
-const isNull = (value) => value === null ? true : false;
-
+const isNull = (value) => value === null;
 /**
- * This function is used to set the output format of the query result.
+ * This object contains functions to convert values to specific data types.
  */
 const types = {
     /**
-     * This function is used to convert the value to the specified data type.
-     * @param {String} value This value is the data type to be converted.
+     * Converts a value to a string.
+     * @param value - The value to be converted
+     * @returns string | null - The converted string value or null
      */
     string: (value) => {
         return isNull(value) ? null : String(value);
     },
     /**
-     * This function is used to convert the value to the specified data type.
-     * @param {Number} value This value is the data type to be converted.
+     * Converts a value to a number.
+     * @param value - The value to be converted
+     * @returns number | null - The converted number value or null
      */
     number: (value) => {
         return isNull(value) ? null : Number(value);
     },
     /**
-     * This function is used to convert the value to the specified data type.
-     * @param {Boolean} value This value is the data type to be converted.
+     * Converts a value to a boolean.
+     * @param value - The value to be converted
+     * @returns boolean | null - The converted boolean value or null
      */
     boolean: (value) => {
         return isNull(value) ? null : Boolean(value);
     },
     /**
-     * This function is used to convert the value to the specified data type.
-     * @param {Date} value This value is the data type to be converted.
+     * Converts a value to a Date.
+     * @param value - The value to be converted
+     * @returns Date | null - The converted Date value or null
      */
     date: (value) => {
         return isNull(value) ? null : new Date(value);
     },
     /**
-     * This function is used to convert the value to the specified data type.
-     * @param {Buffer} value This value is the data type to be converted.
+     * Converts a value to a Buffer.
+     * @param value - The value to be converted
+     * @returns Buffer | null - The converted Buffer value or null
      */
     buffer: (value) => {
         return isNull(value) ? null : Buffer.from(value);
     },
     /**
-     * This function is used to convert the value to the specified data type.
-     * @param {Array} value This value is the data type to be converted.
+     * Converts a value to an Array.
+     * @param value - The value to be converted
+     * @returns any[] | null - The converted Array value or null
      */
     array: (value) => {
         return isNull(value) ? null : Array(value);
     },
     /**
-     * This function is used to convert the value to the specified data type.
-     * @param {*} value This value is the data type to be converted.
+     * Wraps a value in an Any object.
+     * @param value - The value to be wrapped
+     * @returns Any | null - The wrapped value or null
      */
     any: (value) => {
         return isNull(value) ? null : new Any(value);
     }
-}
-
+};
 /**
- * This file contains the data types of SQL Server and their corresponding JavaScript data types.
+ * This object contains the data types of SQL Server and their corresponding JavaScript data type converters.
  */
-module.exports = {
+exports.sqlTypes = {
     "char": types.string,
     "varchar": types.string,
     "text": types.string,
@@ -106,4 +113,5 @@ module.exports = {
     "table": types.array,
     "cursor": types.any,
     "sql_variant": types.any,
-}
+};
+//# sourceMappingURL=data_types.js.map
