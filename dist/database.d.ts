@@ -17,5 +17,6 @@ declare class EasyMssql {
         logingMode: (mode?: boolean) => void;
     };
 }
-declare const _default: EasyMssql;
-export default _default;
+declare const easyMssql: EasyMssql;
+export default easyMssql;
+export { easyMssql };

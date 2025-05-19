@@ -21,4 +21,6 @@ class EasyMssql {
     Config = config.set;
 }
 
-export default new EasyMssql(); 
+const easyMssql = new EasyMssql();
+export default easyMssql;
+export { easyMssql }; 
