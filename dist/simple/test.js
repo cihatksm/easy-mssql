@@ -1,7 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const config_1 = require("./config");
-const database_1 = require("../database");
+const database_1 = __importDefault(require("../database"));
 require("colors");
 console.log('\neasy-mssql Test Suite');
 console.log('===================');
@@ -9,14 +12,14 @@ console.log('Starting tests...\n');
 // Wait for SQL Server to be ready
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 // Enable logging mode
-database_1.database.SetConfig.logingMode(true);
+database_1.default.Config.logingMode(true);
 // Test 1: Database Connection
 console.log('Test 1: Testing database connection...');
 console.log('Waiting for SQL Server to be ready...');
 (async () => {
     // Wait for 15 seconds to ensure SQL Server is ready
     await delay(15000);
-    database_1.database.Connect(config_1.sqlConfig, async (config, err) => {
+    database_1.default.Connect(config_1.sqlConfig, async (config, err) => {
         if (err) {
             console.error('❌ Connection failed:', err.message);
             process.exit(1);
@@ -27,12 +30,12 @@ console.log('Waiting for SQL Server to be ready...');
         try {
             // Create test table
             const schema = {
-                id: database_1.database.Types.int() + database_1.database.Types.options.primaryKey(),
-                name: database_1.database.Types.varchar(255),
-                created_at: database_1.database.Types.datetime()
+                id: database_1.default.Types.int() + database_1.default.Types.options.primaryKey(),
+                name: database_1.default.Types.varchar(255),
+                created_at: database_1.default.Types.datetime()
             };
             // First, ensure the table doesn't exist
-            const table = database_1.database.Table('test_table');
+            const table = database_1.default.Table('test_table');
             await table.functions.remove();
             const createResult = await table.functions.create(schema);
             if (createResult) {
@@ -247,9 +250,9 @@ console.log('Waiting for SQL Server to be ready...');
                 END
             `;
             // Execute the create procedure SQL
-            await database_1.database.Query(createProcSQL);
+            await database_1.default.Query(createProcSQL);
             // Execute stored procedure
-            const procResult = await database_1.database.Procedure('TestProcedure').Execute({
+            const procResult = await database_1.default.Procedure('TestProcedure').Execute({
                 param1: 1,
                 param2: 'Test'
             });

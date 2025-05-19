@@ -1,13 +1,13 @@
 import { sqlConfig } from './config';
-import { database } from '../database';
+import EasyMssql from '../database';
 import { SqlConfig } from '../operations/connect_to_server';
 
 const date = () => new Date();
 
 console.log(date(), 'System opened!');
 
-//database.SetConfig.logingMode(true);
-database.Connect(sqlConfig, async (config: SqlConfig, err?: Error) => {
+//EasyMssql.SetConfig.logingMode(true);
+EasyMssql.Connect(sqlConfig, async (config: SqlConfig, err?: Error) => {
     if (err) {
         console.error(date(), 'Database connection error:', err);
         return;
@@ -17,23 +17,23 @@ database.Connect(sqlConfig, async (config: SqlConfig, err?: Error) => {
     // Example usage:
     /*
     // Find all users
-    const users = await database.Table('account').find();
+    const users = await EasyMssql.Table('account').find();
     console.log(users);
 
     // Find user by ID with selected fields
-    const user = await database.Table('account').find({ id: 1 }, { selected_keys: ['username'] });
+    const user = await EasyMssql.Table('account').find({ id: 1 }, { selected_keys: ['username'] });
     console.log(user);
 
     // Find users with LIKE query
-    const filteredUsers = await database.Table('account').find({}, { selected_keys: ['username'], likes: { username: 'ciha....' } });
+    const filteredUsers = await EasyMssql.Table('account').find({}, { selected_keys: ['username'], likes: { username: 'ciha....' } });
     console.log(filteredUsers);
 
     // Find one user
-    const singleUser = await database.Table('account').findOne({ id: 1 }, { selected_keys: ['username'] });
+    const singleUser = await EasyMssql.Table('account').findOne({ id: 1 }, { selected_keys: ['username'] });
     console.log(singleUser);
 
     // Create user
-    const createdUser = await database.Table('account').createOne({ 
+    const createdUser = await EasyMssql.Table('account').createOne({ 
         id: 1, 
         username: 'cihatksm', 
         email: 'me@cihatksm.com' 
@@ -41,33 +41,33 @@ database.Connect(sqlConfig, async (config: SqlConfig, err?: Error) => {
     console.log(createdUser);
 
     // Update user
-    const updatedUser = await database.Table('account').updateOne(
+    const updatedUser = await EasyMssql.Table('account').updateOne(
         { id: 1 }, 
         { username: 'cihatksm', email: 'contact@cihatksm.com' }
     );
     console.log(updatedUser);
 
     // Get table info
-    const info = await database.Table('company').functions.info();
+    const info = await EasyMssql.Table('company').functions.info();
     console.log(info);
 
     // Execute stored procedure
-    const procedure = await database.Procedure('CreateLog').Execute({ id: 1, name: 'cihat' });
+    const procedure = await EasyMssql.Procedure('CreateLog').Execute({ id: 1, name: 'cihat' });
     console.log(procedure);
 
     // Create table
     const schema = {
-        id: database.Types.int() + database.Types.options.primaryKey(),
-        name: database.Types.varchar(255),
-        created_at: database.Types.datetime(),
-        updated_at: database.Types.datetime(),
-        deleted_at: database.Types.datetime()
+        id: EasyMssql.Types.int() + EasyMssql.Types.options.primaryKey(),
+        name: EasyMssql.Types.varchar(255),
+        created_at: EasyMssql.Types.datetime(),
+        updated_at: EasyMssql.Types.datetime(),
+        deleted_at: EasyMssql.Types.datetime()
     };
-    const createdTable = await database.Table('test').functions.create(schema);
+    const createdTable = await EasyMssql.Table('test').functions.create(schema);
     console.log(createdTable);
 
     // Remove table
-    const removedTable = await database.Table('company').functions.remove();
+    const removedTable = await EasyMssql.Table('company').functions.remove();
     console.log(removedTable);
     */
 }); 

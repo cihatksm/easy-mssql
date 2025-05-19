@@ -1,5 +1,5 @@
 import { sqlConfig } from './config';
-import { database } from '../database';
+import EasyMssql from '../database';
 import { SqlConfig } from '../operations/connect_to_server';
 import 'colors';
 
@@ -11,7 +11,7 @@ console.log('Starting tests...\n');
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Enable logging mode
-database.SetConfig.logingMode(true);
+EasyMssql.Config.logingMode(true);
 
 // Test 1: Database Connection
 console.log('Test 1: Testing database connection...');
@@ -21,7 +21,7 @@ console.log('Waiting for SQL Server to be ready...');
     // Wait for 15 seconds to ensure SQL Server is ready
     await delay(15000);
 
-    database.Connect(sqlConfig, async (config: SqlConfig, err?: Error) => {
+    EasyMssql.Connect(sqlConfig, async (config: SqlConfig, err?: Error) => {
         if (err) {
             console.error('❌ Connection failed:', err.message);
             process.exit(1);
@@ -33,13 +33,13 @@ console.log('Waiting for SQL Server to be ready...');
         try {
             // Create test table
             const schema = {
-                id: database.Types.int() + database.Types.options.primaryKey(),
-                name: database.Types.varchar(255),
-                created_at: database.Types.datetime()
+                id: EasyMssql.Types.int() + EasyMssql.Types.options.primaryKey(),
+                name: EasyMssql.Types.varchar(255),
+                created_at: EasyMssql.Types.datetime()
             };
 
             // First, ensure the table doesn't exist
-            const table = database.Table('test_table');
+            const table = EasyMssql.Table('test_table');
             await table.functions.remove();
 
             const createResult = await table.functions.create(schema);
@@ -259,10 +259,10 @@ console.log('Waiting for SQL Server to be ready...');
             `;
 
             // Execute the create procedure SQL
-            await database.Query(createProcSQL);
+            await EasyMssql.Query(createProcSQL);
 
             // Execute stored procedure
-            const procResult = await database.Procedure('TestProcedure').Execute({
+            const procResult = await EasyMssql.Procedure('TestProcedure').Execute({
                 param1: 1,
                 param2: 'Test'
             });
