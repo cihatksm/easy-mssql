@@ -18,5 +18,4 @@ declare class EasyMssql {
     };
 }
 declare const easyMssql: EasyMssql;
-export default easyMssql;
-export { easyMssql };
+export = easyMssql;

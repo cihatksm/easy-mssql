@@ -1,6 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.easyMssql = void 0;
 require("colors");
 const table_1 = require("./database/table");
 const procedure_1 = require("./database/procedure");
@@ -25,6 +23,5 @@ class EasyMssql {
     }
 }
 const easyMssql = new EasyMssql();
-exports.easyMssql = easyMssql;
-exports.default = easyMssql;
+module.exports = easyMssql;
 //# sourceMappingURL=database.js.map

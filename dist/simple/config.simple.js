@@ -2,13 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sqlConfig = void 0;
 exports.sqlConfig = {
-    user: 'test',
-    password: 'Test1234',
-    server: '100.64.1.1',
-    database: 'test',
+    user: 'user',
+    password: 'password',
+    server: '1.2.3.4',
+    database: 'database',
     options: {
         encrypt: false,
         trustServerCertificate: true
     }
 };
-//# sourceMappingURL=config.js.map
+//# sourceMappingURL=config.simple.js.map
