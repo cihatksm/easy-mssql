@@ -1,3 +1,4 @@
 /node_modules
 /simple/config.js
+/simple/config.ts
 package-lock.json
