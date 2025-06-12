@@ -22,5 +22,4 @@ class EasyMssql {
 }
 
 const easyMssql = new EasyMssql();
-export default easyMssql;
-export { easyMssql }; 
+export = easyMssql;
