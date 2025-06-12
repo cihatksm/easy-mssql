@@ -1,5 +1,5 @@
 const { sqlConfig } = require('./config');
-const EasyMssql = require('../dist/database.js').default;
+const EasyMssql = require('../dist/database.js');
 require('colors');
 
 console.log('\neasy-mssql Test Suite');

@@ -1,5 +1,5 @@
 import { sqlConfig } from './config';
-import EasyMssql from '../database';
+import EasyMssql from '../dist/database';
 import { SqlConfig } from '../operations/connect_to_server';
 import 'colors';
 
