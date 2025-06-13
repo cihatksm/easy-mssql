@@ -12,7 +12,8 @@ declare class EasyMssql {
     Procedure: typeof Procedure;
     Query: (query: string) => Promise<import("./database/query").QueryResult>;
     Types: import("./database/sql_types").SqlTypes;
-    Connect: (sqlConfig: import("./operations/connect_to_server").SqlConfig, run?: (sqlConfig: import("./operations/connect_to_server").SqlConfig, err?: Error) => void) => Promise<boolean>;
+    Connect: (sqlConfig: import("./operations/connect_to_server").SqlConfig, run?: import("./operations/connect_to_server").RunCallback) => Promise<boolean>;
+    IsConnected: () => Promise<boolean>;
     Config: {
         logingMode: (mode?: boolean) => void;
     };

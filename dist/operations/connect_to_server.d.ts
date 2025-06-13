@@ -10,7 +10,13 @@ export interface SqlConfig extends sql.config {
         [key: string]: any;
     };
 }
-type RunCallback = (sqlConfig: SqlConfig, err?: Error) => void;
+export type RunCallback = (sqlConfig: SqlConfig, err?: Error) => void;
+/**
+ * This function checks if the database connection is active
+ *
+ * @returns Promise<boolean> - Returns true if connection is active, false otherwise
+ */
+export declare const isConnected: () => Promise<boolean>;
 /**
  * This function is used to connect to the database.
  *
@@ -19,4 +25,3 @@ type RunCallback = (sqlConfig: SqlConfig, err?: Error) => void;
  * @returns Promise<boolean> - Returns true if connection is successful, false otherwise
  */
 export declare const connectToServer: (sqlConfig: SqlConfig, run?: RunCallback) => Promise<boolean>;
-export {};
