@@ -19,6 +19,7 @@ class EasyMssql {
         this.Query = query_1.Query;
         this.Types = sql_types_1.sqlTypes;
         this.Connect = connect_to_server_1.connectToServer;
+        this.IsConnected = connect_to_server_1.isConnected;
         this.Config = config_1.config.set;
     }
 }

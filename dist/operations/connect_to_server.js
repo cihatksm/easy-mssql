@@ -33,10 +33,30 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.connectToServer = void 0;
+exports.connectToServer = exports.isConnected = void 0;
 const sql = __importStar(require("mssql"));
 const config_1 = require("./config");
 require("colors");
+/**
+ * This function checks if the database connection is active
+ *
+ * @returns Promise<boolean> - Returns true if connection is active, false otherwise
+ */
+const isConnected = async () => {
+    try {
+        const request = new sql.Request();
+        await request.query('SELECT 1');
+        if (config_1.config.get.logingMode())
+            console.log(`▲ easy-mssql / Connection / Status: Active`.green);
+        return true;
+    }
+    catch (err) {
+        if (config_1.config.get.logingMode())
+            console.log(`▲ easy-mssql / Connection / Status: Inactive - ${err instanceof Error ? err.message : String(err)}`.red);
+        return false;
+    }
+};
+exports.isConnected = isConnected;
 /**
  * This function is used to connect to the database.
  *
