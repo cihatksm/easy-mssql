@@ -13,16 +13,9 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "sourceMap": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "typeRoots": ["./types", "./node_modules/@types"]
   },
-  "include": [
-    "operations/**/*",
-    "database/**/*",
-    "simple/**/*",
-    "*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
-} 
+  "include": ["operations/**/*", "database/**/*", "simple/**/*", "*.ts"],
+  "exclude": ["node_modules", "dist", "dist/**/*", "simple"]
+}
