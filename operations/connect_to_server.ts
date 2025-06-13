@@ -13,7 +13,24 @@ export interface SqlConfig extends sql.config {
     };
 }
 
-type RunCallback = (sqlConfig: SqlConfig, err?: Error) => void;
+export type RunCallback = (sqlConfig: SqlConfig, err?: Error) => void;
+
+/**
+ * This function checks if the database connection is active
+ * 
+ * @returns Promise<boolean> - Returns true if connection is active, false otherwise
+ */
+export const isConnected = async (): Promise<boolean> => {
+    try {
+        const request = new sql.Request();
+        await request.query('SELECT 1');
+        if (config.get.logingMode()) console.log(`▲ easy-mssql / Connection / Status: Active`.green);
+        return true;
+    } catch (err) {
+        if (config.get.logingMode()) console.log(`▲ easy-mssql / Connection / Status: Inactive - ${err instanceof Error ? err.message : String(err)}`.red);
+        return false;
+    }
+};
 
 /**
  * This function is used to connect to the database.
@@ -84,4 +101,4 @@ export const connectToServer = async (sqlConfig: SqlConfig, run?: RunCallback): 
 
     if (config.get.logingMode()) console.log(`▲ easy-mssql / Connection / Failed after ${maxRetries} attempts`.yellow);
     return false;
-}; 
+};
