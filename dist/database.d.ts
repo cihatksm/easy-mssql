@@ -13,7 +13,10 @@ declare class EasyMssql {
     Query: (query: string) => Promise<import("./database/query").QueryResult>;
     Types: import("./database/sql_types").SqlTypes;
     Connect: (sqlConfig: import("./operations/connect_to_server").SqlConfig, run?: import("./operations/connect_to_server").RunCallback) => Promise<boolean>;
-    IsConnected: () => Promise<boolean>;
+    IsConnected: () => Promise<{
+        status: number;
+        message: string;
+    }>;
     Config: {
         logingMode: (mode?: boolean) => void;
     };

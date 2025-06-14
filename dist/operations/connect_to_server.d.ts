@@ -16,7 +16,10 @@ export type RunCallback = (sqlConfig: SqlConfig, err?: Error) => void;
  *
  * @returns Promise<boolean> - Returns true if connection is active, false otherwise
  */
-export declare const isConnected: () => Promise<boolean>;
+export declare const isConnected: () => Promise<{
+    status: number;
+    message: string;
+}>;
 /**
  * This function is used to connect to the database.
  *

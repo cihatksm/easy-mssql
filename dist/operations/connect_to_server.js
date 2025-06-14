@@ -46,14 +46,10 @@ const isConnected = async () => {
     try {
         const request = new sql.Request();
         await request.query('SELECT 1');
-        if (config_1.config.get.logingMode())
-            console.log(`▲ easy-mssql / Connection / Status: Active`.green);
-        return true;
+        return { status: 200, message: 'OK' };
     }
     catch (err) {
-        if (config_1.config.get.logingMode())
-            console.log(`▲ easy-mssql / Connection / Status: Inactive - ${err instanceof Error ? err.message : String(err)}`.red);
-        return false;
+        return { status: 500, message: 'Error: ' + String(err) };
     }
 };
 exports.isConnected = isConnected;
