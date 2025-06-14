@@ -20,15 +20,13 @@ export type RunCallback = (sqlConfig: SqlConfig, err?: Error) => void;
  * 
  * @returns Promise<boolean> - Returns true if connection is active, false otherwise
  */
-export const isConnected = async (): Promise<boolean> => {
+export const isConnected = async (): Promise<{ status: number, message: string }> => {
     try {
         const request = new sql.Request();
         await request.query('SELECT 1');
-        if (config.get.logingMode()) console.log(`▲ easy-mssql / Connection / Status: Active`.green);
-        return true;
+        return { status: 200, message: 'OK' }
     } catch (err) {
-        if (config.get.logingMode()) console.log(`▲ easy-mssql / Connection / Status: Inactive - ${err instanceof Error ? err.message : String(err)}`.red);
-        return false;
+        return { status: 500, message: 'Error: ' + String(err) }
     }
 };
 
